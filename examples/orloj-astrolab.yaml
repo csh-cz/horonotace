@@ -1,0 +1,55 @@
+# Astronomická indikace — pohon astrolábu třemi souosými koly na společném pastorku.
+# Vychází z konvence pražského orloje: 365 / 366 / 379 zubů =
+#   střední sluneční den / hvězdný den / střední pohyb Měsíce.
+# K tomu indikace fáze Měsíce (59zubé kolo = 2 × 29,5).
+# Počty zubů jsou ILUSTRATIVNÍ ke struktuře; reálný orloj má vlastní soukolí.
+# yaml-language-server: $schema=../schema/horonotace.schema.json
+
+horonotace: "0.1"
+
+hlavicka:
+  nazev: "Astronomická indikace — astroláb (ukázka)"
+  typ: astronomicke
+  pozn: "Demonstrace zápisu indikačních převodů, ne konkrétní stroj."
+
+stroj:
+  ustroji:
+    - { id: pohon, typ: pohon, nazev: "Pohon" }
+    - { id: jdouci, typ: soukoli-jdouci, nazev: "Jdoucí soukolí" }
+    - { id: astrolab, typ: komplikace, nazev: "Astrolábová indikace" }
+    - { id: faze, typ: komplikace, nazev: "Fáze Měsíce" }
+
+  prvky:
+    - { id: pero, typ: pero, ustroji: pohon }
+    # společný hnací pastorek pohánějící tři souosé indikační kruhy
+    - { id: p-spol, typ: pastorek, ustroji: astrolab, zuby: 1, pozn: "společný hnací pastorek (schematicky)" }
+    # tři souosá kola astrolábu
+    # Přiřazení dle Horský & Procházka 1964: 365=zvěrokruh/hvězdný den, 366=Slunce/sluneční den.
+    - { id: kolo-hvezd, typ: kolo, role: hvezdny, ustroji: astrolab, zuby: 365, pozn: "ekliptika/zvěrokruh, hvězdný den (siderický)" }
+    - { id: kolo-slunce, typ: kolo, role: slunecni, ustroji: astrolab, zuby: 366, pozn: "sluneční ručka, střední sluneční den (24 h)" }
+    - { id: kolo-mesic, typ: kolo, role: mesicni, ustroji: astrolab, zuby: 379, pozn: "střední pohyb Měsíce. Věrný stroj viz praga-orloj.yaml" }
+    # indikace fáze Měsíce
+    - { id: kolo-faze, typ: kolo, ustroji: faze, zuby: 59, pozn: "2 × 29,5 dne" }
+    - { id: indikace-faze, typ: indikace, druh: faze-mesice, ustroji: faze }
+    # ukazovací prvky astrolábu
+    - { id: rucka-slunce, typ: rucka, ukazuje: slunce, ustroji: astrolab }
+    - { id: rucka-mesic, typ: rucka, ukazuje: mesic, ustroji: astrolab }
+    - { id: rucka-hvezd, typ: rucka, ukazuje: hvezdy, ustroji: astrolab }
+
+  hridele:
+    # tři kola jsou souosá, ale každé na vlastní trubce (kinematicky různé osy otáčení)
+    - { id: h-slunce, nese: [kolo-slunce, rucka-slunce], perioda: "24 h (sluneční den)" }
+    - { id: h-hvezd, nese: [kolo-hvezd, rucka-hvezd], perioda: "23 h 56 min (hvězdný den)" }
+    - { id: h-mesic, nese: [kolo-mesic, rucka-mesic] }
+    - { id: h-faze, nese: [kolo-faze, indikace-faze] }
+
+  vazby:
+    - { typ: tok, z: pohon, do: jdouci }
+    - { typ: tok, z: jdouci, do: astrolab }
+    # společný pastorek zabírá do všech tří souosých kol (různé převody → různé periody)
+    - { typ: zaber, z: kolo-slunce, do: p-spol }
+    - { typ: zaber, z: kolo-hvezd, do: p-spol }
+    - { typ: zaber, z: kolo-mesic, do: p-spol }
+    # fáze Měsíce odvozená z měsíčního kola
+    - { typ: zaber, z: kolo-mesic, do: kolo-faze }
+    - { typ: pohani, z: kolo-faze, do: indikace-faze }

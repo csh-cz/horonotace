@@ -1,0 +1,41 @@
+# Minimální úplný příklad pro specifikaci §8.7 — závažový jicí stroj.
+# yaml-language-server: $schema=../schema/horonotace.schema.json
+horonotace: "0.1"
+hlavicka:
+  nazev: "Ukázkový jicí stroj"
+  typ: nastenne
+  datace: "ilustrativní"
+stroj:
+  konstrukce: { typ: desky, material: "mosaz" }
+  ustroji:
+    - { id: pohon,     typ: pohon,         nazev: "Závažový pohon" }
+    - { id: jdouci,    typ: soukoli-jdouci, nazev: "Jicí soukolí" }
+    - { id: krok,      typ: krok,          nazev: "Krok" }
+    - { id: oscilator, typ: oscilator,     nazev: "Kyvadlo" }
+    - { id: ukazovaci, typ: ukazovaci,     nazev: "Ručky" }
+  prvky:
+    - { id: zavazi, typ: zavazi, ustroji: pohon }
+    - { id: buben,  typ: buben,  ustroji: pohon, prumer: "40 mm", otacky: 6, lano: "struna" }
+    - { id: hlavni-kolo, typ: kolo, role: hlavni,   ustroji: jdouci, zuby: 96 }
+    - { id: p-stredni,   typ: pastorek,             ustroji: jdouci, zuby: 12 }
+    - { id: stredni-kolo, typ: kolo, role: minutove, ustroji: jdouci, zuby: 90 }
+    - { id: p-krokove,   typ: pastorek,             ustroji: jdouci, zuby: 12 }
+    - { id: krokove-kolo, typ: krokove-kolo, ustroji: krok, zuby: 30 }
+    - { id: kotva,    typ: kotva,  ustroji: krok }
+    - { id: krok-typ, typ: krok,   druh: kotvovy, ustroji: krok }
+    - { id: kyvadlo,  typ: kyvadlo, ustroji: oscilator, perioda: "2 s" }
+    - { id: rucka-m,  typ: rucka, ukazuje: minuty,  ustroji: ukazovaci }
+    - { id: rucka-h,  typ: rucka, ukazuje: hodiny,  ustroji: ukazovaci }
+    - { id: kvadratura, typ: soukoli-rucek, ustroji: ukazovaci }
+  hridele:
+    - { id: h-barrel,  nese: [buben, hlavni-kolo], perioda: "6 h" }
+    - { id: h-stredni, nese: [p-stredni, stredni-kolo], perioda: "1 h" }
+    - { id: h-krokove, nese: [p-krokove, krokove-kolo, kotva] }
+  vazby:
+    - { typ: pohon, z: zavazi, do: buben }
+    - { typ: zaber, z: hlavni-kolo, do: p-stredni }
+    - { typ: zaber, z: stredni-kolo, do: p-krokove }
+    - { typ: tok,    z: jdouci, do: krok }
+    - { typ: tok,    z: krok,   do: oscilator }
+    - { typ: pohani, z: stredni-kolo, do: rucka-m }
+    - { typ: pohani, z: kvadratura,   do: rucka-h }

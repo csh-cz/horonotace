@@ -1,0 +1,61 @@
+# IMAGINÁRNÍ italský věžní stroj — ilustrativní příklad pro vrstvu D (číselník).
+# Vřetenový krok s korunovým kolem a lihýřem (foliot); koncentrický číselník
+# s italskými hodinami (I…XXIV od západu Slunce) a francouzskými hodinami.
+# Počty zubů jsou ilustrativní; nejde o konkrétní existující stroj.
+# yaml-language-server: $schema=../schema/horonotace.schema.json
+
+horonotace: "0.1"
+
+hlavicka:
+  nazev: "Italský věžní stroj (imaginární)"
+  typ: vezni
+  datace: "ilustrativní (sloh 16.–17. stol.)"
+  pozn: "Vymyšlený stroj; vřetenový krok s lihýřem, koncentrický italský číselník."
+
+stroj:
+  konstrukce: { typ: klecovy-ram, material: "kované železo", pozn: "klecový (birdcage) rám" }
+
+  ustroji:
+    - { id: pohon,     typ: pohon,          nazev: "Závažový pohon" }
+    - { id: jdouci,    typ: soukoli-jdouci, nazev: "Jicí soukolí" }
+    - { id: krok,      typ: krok,           nazev: "Vřetenový krok" }
+    - { id: oscilator, typ: oscilator,      nazev: "Lihýř (foliot)" }
+    - { id: ukazovaci, typ: ukazovaci,      nazev: "Ukazovací ústrojí" }
+
+  prvky:
+    # --- pohon + jicí soukolí ---
+    - { id: zavazi, typ: zavazi, ustroji: pohon }
+    - { id: buben,  typ: buben,  ustroji: pohon, prumer: "150 mm", otacky: 10, lano: "konopné lano" }
+    - { id: hlavni-kolo, typ: kolo, role: hlavni,   ustroji: jdouci, zuby: 96 }
+    - { id: p-stredni,   typ: pastorek,             ustroji: jdouci, zuby: 12 }
+    - { id: stredni-kolo, typ: kolo, role: minutove, ustroji: jdouci, zuby: 96, pozn: "1 ot./h" }
+    - { id: p-treti,     typ: pastorek,             ustroji: jdouci, zuby: 12 }
+    - { id: treti-kolo,  typ: kolo, role: mezitimni, ustroji: jdouci, zuby: 84 }
+    - { id: p-koruna,    typ: pastorek,             ustroji: jdouci, zuby: 8 }
+    # --- vřetenový krok: korunové kolo + vřeteno + lihýř ---
+    - { id: korunove-kolo, typ: korunove-kolo, ustroji: krok, zuby: 15, pozn: "korunové (crown) kolo" }
+    - { id: vreteno,  typ: vreteno, ustroji: krok, pozn: "vřeteno se dvěma kolmými paletami" }
+    - { id: krok-typ, typ: krok,    druh: vretenovy, ustroji: krok, pozn: "odkaz /kroky/vretenovy" }
+    - { id: lihyr,    typ: lihyr,   ustroji: oscilator, pozn: "lihýř (foliot) s posuvnými závažíčky" }
+    # --- ukazovací: italské + francouzské hodiny ---
+    - { id: cifernik,   typ: cifernik, ustroji: ukazovaci }
+    - { id: rucka-it,   typ: rucka, ukazuje: "italské hodiny", ustroji: ukazovaci, pozn: "I…XXIV od západu Slunce" }
+    - { id: rucka-min,  typ: rucka, ukazuje: "minuty", ustroji: ukazovaci }
+    - { id: indik-fr,   typ: indikace, druh: francouzske-hodiny, ustroji: ukazovaci, pozn: "ore francesi (12 h)" }
+
+  hridele:
+    - { id: h-barrel,  nese: [buben, hlavni-kolo], perioda: "10 h" }
+    - { id: h-stredni, nese: [p-stredni, stredni-kolo], perioda: "1 h" }
+    - { id: h-treti,   nese: [p-treti, treti-kolo] }
+    - { id: h-koruna,  nese: [p-koruna, korunove-kolo] }
+    - { id: h-vreteno, nese: [vreteno], pozn: "svislé vřeteno s lihýřem (kolmá osa)" }
+
+  vazby:
+    - { typ: pohon, z: zavazi, do: buben }
+    - { typ: zaber, z: hlavni-kolo, do: p-stredni }   # 96/12 = 8
+    - { typ: zaber, z: stredni-kolo, do: p-treti }    # 96/12 = 8
+    - { typ: zaber, z: treti-kolo, do: p-koruna }     # 84/8  = 10,5
+    - { typ: tok,    z: jdouci, do: krok }
+    - { typ: tok,    z: krok,   do: oscilator }
+    - { typ: pohani, z: stredni-kolo, do: rucka-min }
+    - { typ: pohani, z: stredni-kolo, do: rucka-it }

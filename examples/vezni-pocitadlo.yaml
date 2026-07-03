@@ -1,0 +1,83 @@
+# Věžní hodiny se závažovým pohonem, kotvovým krokem, vteřinovým kyvadlem
+# a počitadlovým (Schlossscheibe) hodinovým bitím.
+# Počty zubů jsou ILUSTRATIVNÍ — ukázka struktury, ne reálný stroj.
+# yaml-language-server: $schema=../schema/horonotace.schema.json
+
+horonotace: "0.1"
+
+hlavicka:
+  nazev: "Věžní hodiny — ukázkový stroj"
+  typ: vezni
+  datace: "19. století"
+  pozn: "Ilustrativní příklad k specifikaci 0.1."
+
+stroj:
+  # věžní stroj: kola v RÁMU, ne mezi plotnami (flatbed je druhá běžná varianta)
+  konstrukce: { typ: klecovy-ram, material: "kované železo" }
+
+  # --- ÚROVEŇ 1: funkční ústrojí (blokové schéma) ---
+  ustroji:
+    - { id: pohon-j, typ: pohon, nazev: "Pohon jdoucího soukolí" }
+    - { id: jdouci, typ: soukoli-jdouci, nazev: "Jdoucí soukolí" }
+    - { id: krok, typ: krok, nazev: "Krok" }
+    - { id: oscilator, typ: oscilator, nazev: "Oscilátor" }
+    - { id: pohon-b, typ: pohon, nazev: "Pohon bicího soukolí" }
+    - { id: bici, typ: soukoli-bici, nazev: "Bicí soukolí" }
+    - { id: ukazovaci, typ: ukazovaci, nazev: "Ukazovací ústrojí" }
+
+  # --- ÚROVEŇ 2: kola, pastorky a další prvky ---
+  prvky:
+    # pohon
+    - { id: zavazi-j, typ: zavazi, ustroji: pohon-j }
+    # jdoucí soukolí (going train)
+    - { id: hlavni-kolo, typ: kolo, role: hlavni, ustroji: jdouci, zuby: 96 }
+    - { id: p-stredni, typ: pastorek, ustroji: jdouci, zuby: 12 }
+    - { id: stredni-kolo, typ: kolo, role: minutove, ustroji: jdouci, zuby: 90, pozn: "nese minutovou ručku, 1 ot./h" }
+    - { id: p-treti, typ: pastorek, ustroji: jdouci, zuby: 10 }
+    - { id: treti-kolo, typ: kolo, role: mezitimni, ustroji: jdouci, zuby: 80 }
+    - { id: p-krokove, typ: pastorek, ustroji: jdouci, zuby: 8 }
+    # krok
+    - { id: krokove-kolo, typ: krokove-kolo, ustroji: krok, zuby: 30 }
+    - { id: kotva, typ: kotva, ustroji: krok }
+    - { id: kroku, typ: krok, druh: kotvovy, ustroji: krok, pozn: "odkaz /kroky/kotvovy" }
+    # oscilátor
+    - { id: kyvadlo, typ: kyvadlo, ustroji: oscilator, perioda: "2 s", pozn: "vteřinové (celá perioda 2 s)" }
+    # bicí soukolí (počitadlové bití hodin)
+    - { id: zavazi-b, typ: zavazi, ustroji: pohon-b }
+    - { id: pocitadlo, typ: zaverka, druh: pocitadlo, ustroji: bici, pozn: "Schlossscheibe" }
+    - { id: vetrnik, typ: vetrnik, ustroji: bici }
+    - { id: kladivko, typ: kladivko, ustroji: bici }
+    - { id: cimbal, typ: cimbal, ustroji: bici, pocet: 1 }
+    # ukazovací ústrojí
+    - { id: cifernik, typ: cifernik, ustroji: ukazovaci }
+    - { id: rucka-h, typ: rucka, ukazuje: hodiny, ustroji: ukazovaci }
+    - { id: rucka-m, typ: rucka, ukazuje: minuty, ustroji: ukazovaci }
+    - { id: motion, typ: soukoli-rucek, ustroji: ukazovaci, pozn: "převod 12:1 na hodinovou ručku" }
+
+  # --- HŘÍDELE: souosé prvky (sdílené nety) ---
+  hridele:
+    - { id: h-hlavni, nese: [zavazi-j, hlavni-kolo], perioda: "12 h" }
+    - { id: h-stredni, nese: [p-stredni, stredni-kolo], perioda: "1 h" }
+    - { id: h-treti, nese: [p-treti, treti-kolo] }
+    - { id: h-krokove, nese: [p-krokove, krokove-kolo, kotva] }
+    - { id: h-bici, nese: [zavazi-b, pocitadlo] }
+
+  # --- VAZBY: hrany grafu ---
+  vazby:
+    # pohon
+    - { typ: pohon, z: zavazi-j, do: hlavni-kolo }
+    # záběry jdoucího soukolí (úroveň 2)
+    - { typ: zaber, z: hlavni-kolo, do: p-stredni }   # 96/12 = 8
+    - { typ: zaber, z: stredni-kolo, do: p-treti }    # 90/10 = 9
+    - { typ: zaber, z: treti-kolo, do: p-krokove }    # 80/8  = 10
+    # tok mezi ústrojími (úroveň 1, blokové schéma)
+    - { typ: tok, z: pohon-j, do: jdouci }
+    - { typ: tok, z: jdouci, do: krok }
+    - { typ: tok, z: krok, do: oscilator }
+    - { typ: tok, z: jdouci, do: ukazovaci }
+    # spouštění bití
+    - { typ: spousteni, z: jdouci, do: bici }
+    - { typ: tok, z: pohon-b, do: bici }
+    # pohon ukazovacích prvků
+    - { typ: pohani, z: stredni-kolo, do: rucka-m }
+    - { typ: pohani, z: motion, do: rucka-h }

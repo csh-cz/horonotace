@@ -1,0 +1,109 @@
+# Staroměstský orloj (Pražský orloj) — astronomický číselník (astroláb)
+# Jádro 1410 (Mikuláš z Kadaně, výpočet Jan Šindel); rekonstrukce 1865–66 (R. Božek).
+#
+# Zdroje počtů zubů a konstrukce:
+#   - Horský, Z. & Procházka, E. (1964): Prague's Astronomical Horloge. [Zotero R68FP2W8]
+#   - orloj.eu (Otakar Zámečník) — http://www.orloj.eu/cs/zuby_kol_astrolabu.htm
+#   - cs/en Wikipedia (cross-check)
+# Počty zubů ASTROLÁBU, MĚSÍČNÍ KOULE a KALENDÁŘE jsou doložené.
+# Přesné zuby jdoucího soukolí (závaží → pastorek) literatura NEUVÁDÍ — viz pozn.
+# yaml-language-server: $schema=../schema/horonotace.schema.json
+
+horonotace: "0.1"
+
+hlavicka:
+  nazev: "Staroměstský orloj — astronomický číselník"
+  autor: "Mikuláš z Kadaně; výpočet Jan Šindel (1410). Rekonstr. Romuald Božek (1865–66)"
+  misto: "Praha, Staroměstská radnice"
+  datace: "1410 (s pozdějšími rekonstrukcemi)"
+  typ: orloj
+  wikidata: Q729370
+  pozn: "Modeluje astroláb, fázi Měsíce, kalendárium a staročeský čas. Doložené zuby."
+
+stroj:
+  # Velký kovaný ŽELEZNÝ rám se stojkami a závlačkami (posted/klecový), ne plotny.
+  # Kola na hranolových hřídelích; bicí stroj v samostatném rámu.
+  konstrukce: { typ: klecovy-ram, material: "ručně kované železo", pozn: "rohové stojky + příčníky spojené závlačkami; hranolové hřídele" }
+
+  ustroji:
+    - { id: pohon, typ: pohon, nazev: "Pohon (závaží)" }
+    - { id: jdouci, typ: soukoli-jdouci, nazev: "Jdoucí soukolí" }
+    - { id: krok, typ: krok, nazev: "Krok" }
+    - { id: oscilator, typ: oscilator, nazev: "Oscilátor" }
+    - { id: astrolab, typ: komplikace, nazev: "Astroláb (Slunce / Měsíc / zvěrokruh)" }
+    - { id: faze, typ: komplikace, umisteni: cifernik, nazev: "Fáze Měsíce (polostříbřená koule)" }
+    - { id: kalendar, typ: komplikace, umisteni: cifernik, nazev: "Kalendárium (deska, R. Božek)" }
+    - { id: staroceske, typ: komplikace, umisteni: cifernik, nazev: "Staročeský (italský) čas" }
+    - { id: bici, typ: soukoli-bici, nazev: "Bicí stroj + apoštolové" }
+
+  prvky:
+    # --- pohon a jdoucí soukolí ---
+    - { id: zavazi, typ: zavazi, ustroji: pohon }
+    - { id: going, typ: kolo, role: jdouci, ustroji: jdouci, pozn: "přesné počty zubů jdoucího soukolí literatura neuvádí (proto bez 'zuby')" }
+    # původně foliotový krok; 1865 nahrazen chronometrovým impulzem á 1 min
+    - { id: krok-orloj, typ: krok, druh: foliotovy, ustroji: krok, pozn: "původně lihýř/foliot; 1865 chronometrová regulace, uvolnění á 1 min" }
+    - { id: lihyr, typ: lihyr, ustroji: oscilator, pozn: "původní regulátor; po 1865 chronometr" }
+
+    # --- ASTROLÁB: společný pastorek 24 z → tři souosá kola na soustředných trubkách ---
+    - { id: pastorek-spol, typ: pastorek, ustroji: astrolab, zuby: 24, pozn: "společný hnací pastorek astrolábu" }
+    - { id: kolo-zverokruh, typ: kolo, role: ekliptika, ustroji: astrolab, zuby: 365, pozn: "kolo zvěrokruhu — 1 ot./hvězdný den" }
+    - { id: kolo-slunce, typ: kolo, role: slunce, ustroji: astrolab, zuby: 366, pozn: "sluneční kolo — 1 ot./sluneční den (24 h)" }
+    - { id: kolo-mesic, typ: kolo, role: mesic, ustroji: astrolab, zuby: 379, pozn: "měsíční kolo — střední pohyb Měsíce po ekliptice" }
+    - { id: prsten-zverokruh, typ: indikace, druh: zverokruh, ustroji: astrolab, ukazuje: "zvěrokruh" }
+    - { id: rucka-slunce, typ: rucka, ukazuje: "Slunce", ustroji: astrolab }
+    - { id: rucka-mesic, typ: rucka, ukazuje: "Měsíc", ustroji: astrolab }
+
+    # --- FÁZE MĚSÍCE: 57zubý vnitřní věnec, hnaný dvouchodým šnekem s grav. závažím ---
+    - { id: venec-koule, typ: kolo, role: venec, ustroji: faze, zuby: 57, pozn: "vnitřní ozubení v kouli; hnáno dvouchodým šnekem + excentrickým gravitačním závažím; 1 ot. koule / synodický měsíc ≈ 29,53 dne" }
+    - { id: koule-mesic, typ: indikace, druh: faze-mesice, ukazuje: "fáze Měsíce", ustroji: faze }
+
+    # --- KALENDÁRIUM ---
+    - { id: kolo-kalendar, typ: kolo, role: kalendar, ustroji: kalendar, zuby: 365, pozn: "posun 1 zub o půlnoci; 1 ot./rok (Romuald Božek 1865–66)" }
+    - { id: deska-kalendar, typ: cifernik, ustroji: kalendar, pozn: "kalendária; malba Josef Mánes 1865 (dnes kopie)" }
+    - { id: indikace-kalendar, typ: indikace, druh: kalendar, ukazuje: "kalendář", ustroji: kalendar }
+
+    # --- STAROČESKÝ ČAS ---
+    - { id: prsten-staroceske, typ: indikace, druh: staroceske-hodiny, ukazuje: "staročeský čas", ustroji: staroceske, pozn: "otočný vnější prsten, schwabachské číslice, počítáno od západu Slunce; pohon klikovým převodem z kalendáře" }
+
+    # --- BICÍ STROJ ---
+    - { id: zavazi-bici, typ: zavazi, ustroji: bici }
+    - { id: zaverka, typ: zaverka, druh: pocitadlo, ustroji: bici, pozn: "závěrkové (count-wheel) bití; nestejné zářezy" }
+    - { id: kladivko, typ: kladivko, ustroji: bici }
+    - { id: cimbal, typ: cimbal, pocet: 1, ustroji: bici }
+    - { id: apostolove, typ: indikace, druh: automat, ustroji: bici, pozn: "průvod apoštolů (figury V. Sucharda po 1945); kohout 1882" }
+
+  hridele:
+    - { id: h-pastorek, nese: [pastorek-spol] }
+    # tři SOUSTŘEDNÉ trubky (Stützrohr) na společné ose astrolábu
+    - { id: h-zverokruh, osa: os-astrolab, nese: [kolo-zverokruh, prsten-zverokruh], perioda: "hvězdný den (≈ 23 h 56 min)", pozn: "vnější soustředná trubka" }
+    - { id: h-slunce, osa: os-astrolab, nese: [kolo-slunce, rucka-slunce], perioda: "24 h (sluneční den)", pozn: "soustředná trubka" }
+    - { id: h-mesic, osa: os-astrolab, nese: [kolo-mesic, rucka-mesic], perioda: "hvězdný měsíc", pozn: "soustředná trubka; nese i rám měsíční koule" }
+    - { id: h-koule, nese: [venec-koule, koule-mesic] }
+    - { id: h-kalendar, nese: [kolo-kalendar, indikace-kalendar] }
+
+  vazby:
+    # pohon a regulace
+    - { typ: pohon, z: zavazi, do: going }
+    - { typ: tok, z: pohon, do: jdouci }
+    - { typ: tok, z: jdouci, do: krok }
+    - { typ: tok, z: krok, do: oscilator }
+    # astroláb: společný pastorek (hnací) → tři souosá kola (hnaná)
+    - { typ: zaber, z: pastorek-spol, do: kolo-zverokruh, pozn: "i = 365/24" }
+    - { typ: zaber, z: pastorek-spol, do: kolo-slunce, pozn: "i = 366/24" }
+    - { typ: zaber, z: pastorek-spol, do: kolo-mesic, pozn: "i = 379/24" }
+    - { typ: pohani, z: kolo-zverokruh, do: prsten-zverokruh }
+    - { typ: pohani, z: kolo-slunce, do: rucka-slunce }
+    - { typ: pohani, z: kolo-mesic, do: rucka-mesic }
+    # fáze Měsíce — věnec 57 hnaný z měsíčního kola přes dvouchodý šnek.
+    # diferenciál: rám koule se otáčí s měsíční ručkou (unášeč) → V_abs = V_rel + V_carrier
+    - { typ: zaber, z: kolo-mesic, do: venec-koule, pozn: "přes dvouchodý šnek; 1 ot./synodický měsíc" }
+    - { typ: pohani, z: venec-koule, do: koule-mesic }
+    # kalendárium: jdoucí soukolí posune kolo o 1 zub o půlnoci
+    - { typ: spousteni, z: jdouci, do: kolo-kalendar, pozn: "krok 1 zub/půlnoc" }
+    - { typ: pohani, z: kolo-kalendar, do: indikace-kalendar }
+    # staročeský čas: klikový převod z kalendáře
+    - { typ: pohani, z: kolo-kalendar, do: prsten-staroceske, pozn: "klikový převod" }
+    # bití
+    - { typ: tok, z: jdouci, do: bici }
+    - { typ: spousteni, z: jdouci, do: bici }
+    - { typ: pohon, z: zavazi-bici, do: bici }

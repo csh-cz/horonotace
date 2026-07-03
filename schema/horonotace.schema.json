@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://csh.cz/horonotace/schema/0.1",
+  "title": "Horonotace",
+  "description": "Strukturní model hodinového stroje (vrstva A). Verze 0.1.",
+  "type": "object",
+  "required": ["horonotace", "stroj"],
+  "additionalProperties": false,
+  "properties": {
+    "horonotace": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+$",
+      "description": "Verze formátu, např. \"0.1\"."
+    },
+    "hlavicka": { "$ref": "#/$defs/hlavicka" },
+    "stroj": { "$ref": "#/$defs/stroj" },
+    "reference": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Bibliografické odkazy / Zotero itemKeys."
+    }
+  },
+  "$defs": {
+    "hlavicka": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "nazev": { "type": "string" },
+        "autor": { "type": "string" },
+        "misto": { "type": "string" },
+        "datace": { "type": "string" },
+        "typ": {
+          "type": "string",
+          "enum": ["vezni", "stolni", "nastenne", "skrinove", "astronomicke", "orloj", "jine"]
+        },
+        "inv": { "type": "string" },
+        "sbirka": { "type": "string" },
+        "wikidata": { "type": "string", "pattern": "^Q\\d+$" },
+        "pozn": { "type": "string" }
+      }
+    },
+    "stroj": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ustroji": { "type": "array", "items": { "$ref": "#/$defs/ustroji" } },
+        "prvky": { "type": "array", "items": { "$ref": "#/$defs/prvek" } },
+        "hridele": { "type": "array", "items": { "$ref": "#/$defs/hridel" } },
+        "vazby": { "type": "array", "items": { "$ref": "#/$defs/vazba" } },
+        "konstrukce": { "$ref": "#/$defs/konstrukce" }
+      }
+    },
+    "konstrukce": {
+      "type": "object",
+      "required": ["typ"],
+      "additionalProperties": true,
+      "properties": {
+        "typ": {
+          "type": "string",
+          "enum": ["desky", "klecovy-ram", "flatbed-ram", "jine"],
+          "description": "Nosná konstrukce. desky = plotny/Platine (interiérové/astronomické, Oechslinova elevace); klecovy-ram = birdcage (věžní); flatbed-ram = horizontální litinový rám (věžní)."
+        },
+        "material": { "type": "string" },
+        "pozn": { "type": "string" }
+      }
+    },
+    "ustroji": {
+      "type": "object",
+      "required": ["id", "typ"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "typ": {
+          "type": "string",
+          "enum": [
+            "pohon", "soukoli-jdouci", "krok", "oscilator",
+            "soukoli-bici", "soukoli-zvonici", "ukazovaci", "komplikace"
+          ]
+        },
+        "umisteni": {
+          "type": "string",
+          "enum": ["ram", "cifernik"],
+          "description": "Kde ústrojí sedí. ram = uvnitř nosné konstrukce (default); cifernik = samostatná sestava na straně ukazatele, mimo rám."
+        },
+        "nazev": { "type": "string" },
+        "pozn": { "type": "string" }
+      }
+    },
+    "prvek": {
+      "type": "object",
+      "required": ["id", "typ"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "typ": {
+          "type": "string",
+          "description": "Typ prvku ze slovníku (rozšiřitelný). Viz spec §2.2.",
+          "examples": [
+            "zavazi", "buben", "pero", "perovnik", "snek", "retizek-snekovy", "rohatka", "zapadka",
+            "kolo", "pastorek", "cevkovy-pastorek",
+            "krok", "krokove-kolo", "kotva", "paleta",
+            "kyvadlo", "lihyr", "foliot", "setrvacka", "vlasek",
+            "zaverka", "pocitadlo", "pocetnik", "stupnice", "srdcovka", "posuvka", "vypousteci-kolo", "vetrnik", "kladivko", "cimbal", "zvon",
+            "cifernik", "rucka", "soukoli-rucek", "indikace"
+          ]
+        },
+        "role": { "type": "string", "description": "Funkční role, např. hlavni|stredni|krokove." },
+        "ustroji": { "$ref": "#/$defs/id", "description": "ID bloku úrovně 1, kam prvek patří." },
+        "zuby": { "type": "integer", "minimum": 1, "description": "Počet zubů kola / ceví pastorku." },
+        "prumer": { "type": "string", "description": "Průměr (např. lanového bubnu), např. \"180 mm\"." },
+        "otacky": { "type": "number", "description": "Počet otáček (např. návinů lana na bubnu) za celý chod." },
+        "lano": { "type": "string", "description": "Druh tažného prvku: lano / řetízek / ocelové lano." },
+        "druh": { "type": "string", "description": "Poddruh, např. krok druh=kotvovy." },
+        "ukazuje": { "type": "string", "description": "Co ručka/indikace ukazuje." },
+        "pocet": { "type": "integer", "minimum": 1, "description": "Počet (cimbálů, zvonů…)." },
+        "pozn": { "type": "string" }
+      }
+    },
+    "hridel": {
+      "type": "object",
+      "required": ["id", "nese"],
+      "additionalProperties": true,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "nese": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/id" },
+          "minItems": 1,
+          "description": "ID souosých prvků na téže hřídeli."
+        },
+        "osa": { "$ref": "#/$defs/id", "description": "Štítek společné osy pro soustředné hřídele (Stützrohr) — hřídele se stejnou hodnotou 'osa' se kreslí v jednom sloupci nad sebou. Volný seskupovací klíč (slug), NEMUSÍ odkazovat na existující prvek/hřídel." },
+        "perioda": { "type": "string", "description": "Doba jedné otáčky, např. \"1 h\"." },
+        "poloha": {
+          "type": "array",
+          "items": { "type": "number" },
+          "minItems": 2,
+          "maxItems": 2,
+          "description": "Skutečná poloha hřídele v plotně/rámu [x, y] v mm (volitelně). Použije ji čelní pohled (vrstva E) pro věrný depthing plán; bez ní se polohy dopočtou schématicky z počtů zubů."
+        },
+        "pozn": { "type": "string" }
+      }
+    },
+    "vazba": {
+      "type": "object",
+      "required": ["typ"],
+      "additionalProperties": true,
+      "properties": {
+        "typ": {
+          "type": "string",
+          "enum": ["pohon", "zaber", "tok", "spousteni", "pohani", "blokuje"],
+          "description": "Hrana. blokuje = jeden člen zamyká/blokuje druhý (zámek bicího stroje, západka)."
+        },
+        "z": { "$ref": "#/$defs/id" },
+        "do": { "$ref": "#/$defs/id" },
+        "pozn": { "type": "string" }
+      }
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$",
+      "description": "Identifikátor (kebab-case, ASCII)."
+    }
+  }
+}

@@ -1,0 +1,115 @@
+# Staroměstský orloj — ČTYŘI STRANY podle Táborského "Zprávy o orloji" (1570),
+# doplněno Listem purkmistra (1410). HISTORICKÁ topologie stavu 16. století,
+# NE moderní (Božkův) stroj. Počty zubů Táborský většinou neudává.
+#
+# Prameny: Orlojní kniha (AHMP, Sbírka rukopisů, inv. č. 7916, opis 1628):
+#   - List purkmistra 1410 — fol. 51-54 ("30 reder mitt 3 trieben")
+#   - Táborského Zpráva 1570 — fol. 10-19 (čtyři "strany")
+# yaml-language-server: $schema=../schema/horonotace.schema.json
+
+horonotace: "0.1"
+
+hlavicka:
+  nazev: 'Staroměstský orloj — čtyři strany dle Táborského (1570)'
+  autor: 'jádro Mikuláš z Kadaně 1410; popis Jan Táborský z Klokotské Hory 1570'
+  misto: 'Praha, Staroměstská radnice'
+  datace: '1410 / stav popsaný 1570'
+  typ: orloj
+  wikidata: Q729370
+  pozn: >
+    Táborský dělí orloj na 4 „strany", každá „svú váhu, svůj zvláštní stroj a svá kola má"
+    (fol. 10): 1. minutní (jdoucí, „grunt"), 2. spouštěcí (varovka + zvonec), 3. bicí
+    — PŮVODNĚ NAHOŘE NA VĚŽI, spouštěná drátem zdola (do 1570 snesena dolů do jedné
+    skříně, fol. 11), 4. astronomická — tři velká kola Slunce/Měsíc/zvěrokruh hnaná
+    TŘEMI tryblíky na konci hřídele hlavního kola (fol. 19) = Listových „3 tryby".
+    List uvádí kulatě „30 kol se 3 tryby"; Táborského pečlivý soupis dává ~12-16 kol
+    a sám orloj chválí, že „v menším počtu kol více působí" (fol. 8).
+
+stroj:
+  konstrukce: { typ: klecovy-ram, material: 'ručně kované železo', pozn: 'kovaný rám se stojkami; bicí stroj měl PŮVODNĚ samostatný rám nahoře na věži' }
+
+  # --- ÚROVEŇ 1: čtyři „strany" ---
+  ustroji:
+    - { id: pohon-j, typ: pohon, nazev: 'Váha 1. strany' }
+    - { id: jdouci, typ: soukoli-jdouci, nazev: '1 · minutní' }
+    - { id: krok, typ: krok, nazev: 'krok' }
+    - { id: oscilator, typ: oscilator, nazev: 'oscilátor' }
+    - { id: pohon-s, typ: pohon, nazev: 'Váha 2' }
+    - { id: spousteci, typ: soukoli-zvonici, nazev: '2 · spouštěcí' }
+    - { id: pohon-b, typ: pohon, nazev: 'Váha 3' }
+    - { id: bici, typ: soukoli-bici, nazev: '3 · bicí (věž)' }
+    - { id: astro, typ: komplikace, nazev: '4 · astronomická' }
+
+  # --- ÚROVEŇ 2: prvky ---
+  prvky:
+    # === 1. STRANA — minutní (jdoucí) ===
+    - { id: zavazi-j, typ: zavazi, ustroji: pohon-j }
+    - { id: hlavni-kolo, typ: kolo, role: hlavni, ustroji: jdouci, pozn: 'hlavní kolo; na hřídeli vál/rumpál s váhou; „grunt", vede ostatní strany (fol. 11)' }
+    - { id: druhe-kolo, typ: kolo, ustroji: jdouci, pozn: 'druhé, „dobře mnoho menší" kolo (fol. 11)' }
+    - { id: stegrad, typ: krokove-kolo, ustroji: krok, pozn: '„štegrad" — triblík druhého kola, veden zuby hlavního kola, vede minuty (fol. 11)' }
+    - { id: foliot, typ: lihyr, ustroji: oscilator, pozn: 'původní lihýř/foliot (oscilátor v 19. stol. nahrazen)' }
+
+    # === 2. STRANA — spouštěcí (varovka / let-off) ===
+    - { id: zavazi-s, typ: zavazi, ustroji: pohon-s }
+    - { id: kolo-s, typ: kolo, ustroji: spousteci, pozn: '„s svým kolem"; pootočí se o půl a zase zamkne (fol. 11)' }
+    - { id: zvonec, typ: cimbal, pocet: 1, ustroji: spousteci, pozn: 'malý zvonec — předzvěst, zní při spouštění (fol. 11)' }
+    - { id: lermo, typ: vypousteci-paka, ustroji: spousteci, pozn: 'rykl „lermo", zvedaný bočním worffem; na něm DRÁT TLUSTÝ vzhůru na věž' }
+
+    # === 3. STRANA — bicí (NA VĚŽI) ===
+    - { id: zavazi-b, typ: zavazi, ustroji: bici }
+    - { id: kola-bici, typ: kolo, ustroji: bici, pozn: '„koly svími" — Táborský počet neudává (fol. 11); bicí soukolí' }
+    - { id: kladivko, typ: kladivko, ustroji: bici, pozn: 'kladivo; nahoře na věži' }
+    - { id: zvon, typ: cimbal, pocet: 1, ustroji: bici, pozn: 'velký zvon — „hodiny tepau"' }
+
+    # === 4. STRANA — astronomická ===
+    - { id: tri-tryblik, typ: pastorek, ustroji: astro, pozn: 'TŘI tryblíky na konci hřídele hlavního/minutního kola (fol. 19) = Listových „3 tryby"' }
+    - { id: kolo-slunce, typ: kolo, role: slunce, ustroji: astro, pozn: 'jedno ze tří velkých sphernních kol — Slunce' }
+    - { id: kolo-mesic, typ: kolo, role: mesic, ustroji: astro, pozn: 'měsíční kolo' }
+    - { id: kolo-zverokruh, typ: kolo, role: ekliptika, ustroji: astro, pozn: 'zvěrokruhové kolo; nese vnější obruč = „najvětší kolo v tom orloji" (fol. 13)' }
+    - { id: rucka-slunce, typ: rucka, ukazuje: 'Slunce', ustroji: astro }
+    - { id: rucka-mesic, typ: rucka, ukazuje: 'Měsíc', ustroji: astro }
+    - { id: prsten-zverokruh, typ: indikace, druh: zverokruh, ukazuje: 'zvěrokruh', ustroji: astro }
+    - { id: kolo-kalendar, typ: kolo, role: kalendar, ustroji: astro, zuby: 365, pozn: 'kalendářní kolo — 365 vroubků (fol. 12); posun o 1 zub o půlnoci' }
+    - { id: indikace-kalendar, typ: indikace, druh: kalendar, ukazuje: 'svátky (na „předním kole")', ustroji: astro }
+
+  # --- HŘÍDELE (sdílené nety) ---
+  hridele:
+    - { id: h-hlavni, nese: [zavazi-j, hlavni-kolo, tri-tryblik], pozn: 'hřídel hlavního kola; jeho konec ven z rámu nese 3 tryblíky astrolábu (fol. 19)' }
+    - { id: h-druhe, nese: [druhe-kolo, stegrad], perioda: '1 h' }
+    - { id: h-kolo-s, nese: [kolo-s, lermo] }
+    - { id: h-bici, nese: [kola-bici] }
+    # tři SOUSTŘEDNÁ kola na ose astrolábu (Stützrohr)
+    - { id: h-slunce, osa: os-astro, nese: [kolo-slunce, rucka-slunce] }
+    - { id: h-mesic, osa: os-astro, nese: [kolo-mesic, rucka-mesic] }
+    - { id: h-zverokruh, osa: os-astro, nese: [kolo-zverokruh, prsten-zverokruh] }
+    - { id: h-kalendar, nese: [kolo-kalendar, indikace-kalendar] }
+
+  # --- VAZBY ---
+  vazby:
+    # 1. minutní: váha → hlavní → druhé/štegrad → krok → oscilátor
+    - { typ: pohon, z: zavazi-j, do: hlavni-kolo }
+    - { typ: zaber, z: hlavni-kolo, do: druhe-kolo, pozn: '„štegrad" veden zuby hlavního kola, vede minuty' }
+    - { typ: tok, z: jdouci, do: krok }
+    - { typ: tok, z: krok, do: oscilator }
+
+    # 1. → 4. astronomická: 3 tryblíky na hřídeli hlavního kola pohánějí 3 sphernní kola
+    - { typ: zaber, z: tri-tryblik, do: kolo-slunce, pozn: 'jeden ze 3 tryblíků (fol. 19)' }
+    - { typ: zaber, z: tri-tryblik, do: kolo-mesic }
+    - { typ: zaber, z: tri-tryblik, do: kolo-zverokruh }
+    - { typ: pohani, z: kolo-slunce, do: rucka-slunce }
+    - { typ: pohani, z: kolo-mesic, do: rucka-mesic }
+    - { typ: pohani, z: kolo-zverokruh, do: prsten-zverokruh }
+    - { typ: spousteni, z: jdouci, do: kolo-kalendar, pozn: 'posun kalendáře o 1 zub o půlnoci (samočinný „stroj s kolečky" přidal Táborský 1566)' }
+    - { typ: pohani, z: kolo-kalendar, do: indikace-kalendar }
+
+    # 1. → 2. spouštěcí: jdoucí v celou hodinu odemkne spouštěcí stranu
+    - { typ: pohon, z: zavazi-s, do: kolo-s }
+    - { typ: spousteni, z: jdouci, do: kolo-s, pozn: '„když první strana palici její vyzdvihne" (fol. 11)' }
+    - { typ: pohani, z: kolo-s, do: zvonec, pozn: 'při spouštění zvoní malý zvonec (předzvěst)' }
+    - { typ: spousteni, z: kolo-s, do: lermo, pozn: 'boční worff zvedne rykl/„lermo"' }
+
+    # 2. → 3. bicí: DRÁT vzhůru NA VĚŽ spustí bití
+    - { typ: pohon, z: zavazi-b, do: kola-bici }
+    - { typ: spousteni, z: lermo, do: bici, pozn: '★ DRÁT TLUSTÝ vede vzhůru NA VĚŽ → napnutím spustí bicí stroj (fol. 11)' }
+    - { typ: spousteni, z: kola-bici, do: kladivko }
+    - { typ: spousteni, z: kladivko, do: zvon, pozn: '„hodiny tepau" na velký zvon' }

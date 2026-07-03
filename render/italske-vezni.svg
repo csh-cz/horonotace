@@ -1,0 +1,113 @@
+<svg viewBox="0 0 828.6 682" xmlns="http://www.w3.org/2000/svg" font-family="Georgia,'Times New Roman',serif" role="img">
+<title>Italský věžní stroj (imaginární)</title><desc>Schématická elevace soukolí (horonotace, vrstva C).</desc>
+<rect width="828.6" height="682" fill="#f4eedd"/>
+<defs><marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#33506b"/></marker></defs>
+<text x="150" y="44" font-size="21" fill="#1f1c14">Italský věžní stroj (imaginární)</text>
+<text x="150" y="66" font-size="12" fill="#6b6253">ilustrativní (sloh 16.–17. stol.)</text>
+<rect x="80" y="168" width="590.6" height="344" fill="none" stroke="#1f1c14" stroke-width="2.4"/>
+<line x1="80" y1="162" x2="80" y2="518" stroke="#1f1c14" stroke-width="4.5"/>
+<circle cx="80" cy="162" r="4" fill="#1f1c14"/>
+<line x1="670.6" y1="162" x2="670.6" y2="518" stroke="#1f1c14" stroke-width="4.5"/>
+<circle cx="670.6" cy="162" r="4" fill="#1f1c14"/>
+<text x="84" y="156" font-size="12" fill="#6b6253" font-style="italic">Rám — klecový</text>
+<path d="M124.0,148 L124.0,138 L454.6,138 L454.6,148" fill="none" stroke="#9a3b2e" stroke-width="1.2"/>
+<text x="289.3" y="133" font-size="12.5" fill="#9a3b2e" text-anchor="middle">Jicí soukolí</text>
+<path d="M402.6,148 L402.6,138 L454.6,138 L454.6,148" fill="none" stroke="#5b4b8a" stroke-width="1.2"/>
+<text x="428.6" y="133" font-size="12.5" fill="#5b4b8a" text-anchor="middle">Vřetenový krok</text>
+<line x1="150.0" y1="168" x2="150.0" y2="512" stroke="#9a3b2e" stroke-opacity="0.6" stroke-width="1.2"/>
+<line x1="145.5" y1="168" x2="154.5" y2="168" stroke="#1f1c14" stroke-width="1.8"/>
+<line x1="145.5" y1="512" x2="154.5" y2="512" stroke="#1f1c14" stroke-width="1.8"/>
+<line x1="247.7" y1="168" x2="247.7" y2="512" stroke="#9a3b2e" stroke-opacity="0.6" stroke-width="1.2"/>
+<line x1="243.2" y1="168" x2="252.2" y2="168" stroke="#1f1c14" stroke-width="1.8"/>
+<line x1="243.2" y1="512" x2="252.2" y2="512" stroke="#1f1c14" stroke-width="1.8"/>
+<line x1="345.4" y1="168" x2="345.4" y2="512" stroke="#9a3b2e" stroke-opacity="0.6" stroke-width="1.2"/>
+<line x1="340.9" y1="168" x2="349.9" y2="168" stroke="#1f1c14" stroke-width="1.8"/>
+<line x1="340.9" y1="512" x2="349.9" y2="512" stroke="#1f1c14" stroke-width="1.8"/>
+<line x1="428.6" y1="168" x2="428.6" y2="512" stroke="#9a3b2e" stroke-opacity="0.6" stroke-width="1.2"/>
+<line x1="424.1" y1="168" x2="433.1" y2="168" stroke="#1f1c14" stroke-width="1.8"/>
+<line x1="424.1" y1="512" x2="433.1" y2="512" stroke="#1f1c14" stroke-width="1.8"/>
+<line x1="578.6" y1="168" x2="578.6" y2="512" stroke="#6b6253" stroke-opacity="0.6" stroke-width="1.2"/>
+<line x1="574.1" y1="168" x2="583.1" y2="168" stroke="#1f1c14" stroke-width="1.8"/>
+<line x1="574.1" y1="512" x2="583.1" y2="512" stroke="#1f1c14" stroke-width="1.8"/>
+<path d="M212.0,232 H225.95 V232 H239.89999999999998" fill="none" stroke="#1f1c14" stroke-width="1.4"/>
+<line x1="222.95" y1="229.0" x2="228.95" y2="235.0" stroke="#1f1c14" stroke-width="1"/>
+<path d="M309.7,296 H323.65 V296 H337.59999999999997" fill="none" stroke="#1f1c14" stroke-width="1.4"/>
+<line x1="320.65" y1="293.0" x2="326.65" y2="299.0" stroke="#1f1c14" stroke-width="1"/>
+<path d="M399.59999999999997,360 H411.5 V360 H423.40000000000003" fill="none" stroke="#1f1c14" stroke-width="1.4"/>
+<line x1="408.5" y1="357.0" x2="414.5" y2="363.0" stroke="#1f1c14" stroke-width="1"/>
+<line x1="88.0" y1="232" x2="212.0" y2="232" stroke="#9a3b2e" stroke-width="1.9"/>
+<line x1="88.0" y1="227" x2="88.0" y2="237" stroke="#9a3b2e" stroke-width="1.3"/>
+<line x1="212.0" y1="227" x2="212.0" y2="237" stroke="#9a3b2e" stroke-width="1.3"/>
+<text x="150.0" y="224" font-size="12.5" font-style="italic" fill="#1f1c14" text-anchor="middle">96</text>
+<rect x="147.0" y="229" width="6" height="6" fill="#9a3b2e"/>
+<line x1="239.89999999999998" y1="232" x2="255.5" y2="232" stroke="#9a3b2e" stroke-width="1.9"/>
+<line x1="239.89999999999998" y1="227" x2="239.89999999999998" y2="237" stroke="#9a3b2e" stroke-width="1.3"/>
+<line x1="255.5" y1="227" x2="255.5" y2="237" stroke="#9a3b2e" stroke-width="1.3"/>
+<text x="247.7" y="224" font-size="12.5" font-style="italic" fill="#1f1c14" text-anchor="middle">12</text>
+<rect x="244.7" y="229" width="6" height="6" fill="#9a3b2e"/>
+<line x1="185.7" y1="296" x2="309.7" y2="296" stroke="#9a3b2e" stroke-width="1.9"/>
+<line x1="185.7" y1="291" x2="185.7" y2="301" stroke="#9a3b2e" stroke-width="1.3"/>
+<line x1="309.7" y1="291" x2="309.7" y2="301" stroke="#9a3b2e" stroke-width="1.3"/>
+<text x="247.7" y="288" font-size="12.5" font-style="italic" fill="#1f1c14" text-anchor="middle">96</text>
+<rect x="244.7" y="293" width="6" height="6" fill="#9a3b2e"/>
+<line x1="337.59999999999997" y1="296" x2="353.2" y2="296" stroke="#9a3b2e" stroke-width="1.9"/>
+<line x1="337.59999999999997" y1="291" x2="337.59999999999997" y2="301" stroke="#9a3b2e" stroke-width="1.3"/>
+<line x1="353.2" y1="291" x2="353.2" y2="301" stroke="#9a3b2e" stroke-width="1.3"/>
+<text x="345.4" y="288" font-size="12.5" font-style="italic" fill="#1f1c14" text-anchor="middle">12</text>
+<rect x="342.4" y="293" width="6" height="6" fill="#9a3b2e"/>
+<line x1="291.2" y1="360" x2="399.59999999999997" y2="360" stroke="#9a3b2e" stroke-width="1.9"/>
+<line x1="291.2" y1="355" x2="291.2" y2="365" stroke="#9a3b2e" stroke-width="1.3"/>
+<line x1="399.59999999999997" y1="355" x2="399.59999999999997" y2="365" stroke="#9a3b2e" stroke-width="1.3"/>
+<text x="345.4" y="352" font-size="12.5" font-style="italic" fill="#1f1c14" text-anchor="middle">84</text>
+<rect x="342.4" y="357" width="6" height="6" fill="#9a3b2e"/>
+<line x1="423.40000000000003" y1="360" x2="433.8" y2="360" stroke="#9a3b2e" stroke-width="1.9"/>
+<line x1="423.40000000000003" y1="355" x2="423.40000000000003" y2="365" stroke="#9a3b2e" stroke-width="1.3"/>
+<line x1="433.8" y1="355" x2="433.8" y2="365" stroke="#9a3b2e" stroke-width="1.3"/>
+<text x="428.6" y="352" font-size="12.5" font-style="italic" fill="#1f1c14" text-anchor="middle">8</text>
+<rect x="425.6" y="357" width="6" height="6" fill="#9a3b2e"/>
+<line x1="418.90000000000003" y1="424" x2="438.3" y2="424" stroke="#9a3b2e" stroke-width="1.9"/>
+<line x1="418.90000000000003" y1="419" x2="418.90000000000003" y2="429" stroke="#9a3b2e" stroke-width="1.3"/>
+<line x1="438.3" y1="419" x2="438.3" y2="429" stroke="#9a3b2e" stroke-width="1.3"/>
+<text x="428.6" y="416" font-size="12.5" font-style="italic" fill="#1f1c14" text-anchor="middle">15</text>
+<rect x="425.6" y="421" width="6" height="6" fill="#9a3b2e"/>
+<circle cx="247.7" cy="96" r="17" fill="#f4eedd" stroke="#9a3b2e" stroke-width="1.3"/>
+<circle cx="247.7" cy="96" r="2" fill="#9a3b2e"/>
+<line x1="243.7" y1="296" x2="243.7" y2="113" stroke="#9a3b2e" stroke-width="1.3"/>
+<line x1="243.7" y1="113" x2="247.7" y2="96" stroke="#9a3b2e" stroke-opacity="0.7" stroke-width="0.7"/>
+<line x1="247.7" y1="96" x2="242.1" y2="82.1" stroke="#9a3b2e" stroke-width="2"/>
+<text x="234.3" y="75.8" font-size="11" fill="#9a3b2e" text-anchor="end">minuty</text>
+<line x1="251.7" y1="296" x2="251.7" y2="113" stroke="#9a3b2e" stroke-width="1.3"/>
+<line x1="251.7" y1="113" x2="247.7" y2="96" stroke="#9a3b2e" stroke-opacity="0.7" stroke-width="0.7"/>
+<line x1="247.7" y1="96" x2="253.3" y2="82.1" stroke="#9a3b2e" stroke-width="2"/>
+<text x="261.1" y="75.8" font-size="11" fill="#9a3b2e" text-anchor="start">italské hodiny</text>
+<rect x="141.0" y="463" width="18.0" height="18" rx="2" fill="none" stroke="#705f31" stroke-width="1.5"/>
+<line x1="145.5" y1="463" x2="145.5" y2="481" stroke="#705f31" stroke-opacity="0.55" stroke-width="0.7"/>
+<line x1="150.0" y1="463" x2="150.0" y2="481" stroke="#705f31" stroke-opacity="0.55" stroke-width="0.7"/>
+<line x1="154.5" y1="463" x2="154.5" y2="481" stroke="#705f31" stroke-opacity="0.55" stroke-width="0.7"/>
+<text x="165.0" y="475" font-size="9.5" fill="#705f31">buben ⌀150 mm, 10 ot.</text>
+<line x1="141.0" y1="481" x2="141.0" y2="542" stroke="#705f31" stroke-width="1.1"/>
+<path d="M131.0,542 h20 l-3,26 h-14 z" fill="none" stroke="#705f31" stroke-width="1.5"/>
+<line x1="134.0" y1="548" x2="148.0" y2="548" stroke="#705f31" stroke-width="0.7"/>
+<line x1="134.0" y1="553" x2="148.0" y2="553" stroke="#705f31" stroke-width="0.7"/>
+<line x1="134.0" y1="558" x2="148.0" y2="558" stroke="#705f31" stroke-width="0.7"/>
+<line x1="134.0" y1="563" x2="148.0" y2="563" stroke="#705f31" stroke-width="0.7"/>
+<text x="141.0" y="584" font-size="10.5" fill="#705f31" text-anchor="middle">závaží</text>
+<rect x="146.0" y="184" width="8" height="8" fill="none" stroke="#705f31" stroke-width="1.2" transform="rotate(45 150.0 188)"/>
+<path d="M150.0,188 h26 v-20" fill="none" stroke="#705f31" stroke-width="1.6"/>
+<circle cx="176.0" cy="168" r="2.8" fill="#705f31"/>
+<circle cx="150.0" cy="207" r="6.5" fill="none" stroke="#705f31" stroke-width="1.1"/>
+<path d="M144.0,204 l2,-4 l2,4 l2,-4 l2,4 l2,-4" fill="none" stroke="#705f31" stroke-width="0.9"/>
+<circle cx="162.0" cy="198" r="1.5" fill="#705f31"/>
+<path d="M162.0,198 l-7,7" fill="none" stroke="#705f31" stroke-width="1.2"/>
+<text x="184.0" y="172" font-size="9" fill="#705f31">natahování</text>
+<rect x="150" y="643" width="9" height="9" fill="#1f1c14"/>
+<text x="164" y="652" font-size="11" fill="#6b6253">klíny = kolo spojené se svou dráhou</text>
+<line x1="400" y1="641" x2="400" y2="654" stroke="#6b6253" stroke-width="1.1"/>
+<line x1="397" y1="644" x2="397" y2="654" stroke="#6b6253" stroke-width="1"/>
+<line x1="403" y1="644" x2="403" y2="654" stroke="#6b6253" stroke-width="1"/>
+<line x1="394" y1="647" x2="394" y2="654" stroke="#6b6253" stroke-width="1"/>
+<line x1="406" y1="647" x2="406" y2="654" stroke="#6b6253" stroke-width="1"/>
+<text x="414" y="652" font-size="11" fill="#6b6253">osa (nejdelší) + kratší trubky → ukazatele</text>
+<text x="150" y="670" font-size="10" fill="#6b6253" font-style="italic">barva = jednotlivá dráha (osa/trubka) · délka úsečky kola ∝ roztečnému průměru (∝ z)</text>
+<text x="798.6" y="668" font-size="10" fill="#6b6253" text-anchor="end" font-style="italic">horonotace · vrstva C</text>
+</svg>
