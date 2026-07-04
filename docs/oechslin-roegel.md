@@ -17,38 +17,27 @@ provázaných věcí:
    hledání *syntetického* řešení: jediné (často epicyklické) soukolí pro víc indikací
    s minimem dílů (např. fáze Měsíce přesná na 3478 let z 5 dílů vč. ciferníku).
 
-## Moderní strojová formalizace — Denis Roegel
+## Moderní strojová formalizace
 
-**Denis Roegel** (LORIA Nancy; kapitola o astronomických hodinách v *General History
-of Horology*, OUP 2022) formalizoval Oechslinova data v companionu
-*roegel2025oechslin* — <https://roegeld.github.io/oechslin/> (32 PDF kapitol, v0.18,
-říjen 2025). **Pozor: Roegel explicitně zakazuje zrcadlení/indexaci textu (jen osobní
-studium).**
-
-Notační konvence (přesně vzor pro naši astronomickou vrstvu):
+Tuto metodu (train-count → exaktní zlomek → astronomická perioda + chyba) formálně
+zpracoval **Denis Roegel** v kapitole o astronomických hodinách v *A General History
+of Horology* (OUP 2022). Obecný tvar, který přebíráme jako vzor naší astronomické
+vrstvy (jde o standardní kinematiku převodů — Willisova rovnice pro epicyklika):
 
 ```
-V_out  = V_in × ∏(z_hnaný / z_hnací)          řetězec záběrů (poměr úhl. rychlostí)
-V_abs  = V_rel + V_carrier                      epicyklické soukolí (superpozice)
-P_<i>  = exaktní zlomek  +  rozklad na h/m/s    perioda hřídele/indikace
+V_out = V_in × ∏(z_hnaný / z_hnací)      řetězec záběrů (poměr úhlových rychlostí)
+V_abs = V_rel + V_carrier                  epicyklické soukolí (superpozice, unášeč)
+P     = exaktní zlomek + rozklad h/m/s     perioda hřídele/indikace
 ```
 
-- `V<index>` = poměr úhlové rychlosti hřídele / trubky / rámu; **znaménko** = smysl
-  otáčení.
-- **Horní index (prime)** = vztažná soustava — nezbytné pro epicyklika (relativně
-  k unášeči vs. absolutně).
-- `P<index>` = perioda jako **exaktní zlomek** + desetinný rozklad na h/m/s.
+- poměr úhlové rychlosti hřídele / trubky / rámu; **znaménko** = smysl otáčení,
+- **vztažná soustava** (relativně k unášeči vs. absolutně) — nezbytná pro epicyklika,
+- perioda jako **exaktní zlomek** + desetinný rozklad na h/m/s.
 
-Reprodukovaný příklad (Kleinovy geografické hodiny, Praha ~1732, z Roegelovy kapitoly):
-
-```
-V10' = −2                                  (trubka 10: otáčka za 12 h)
-V11' = V10' × (36/72) = 1                  (arbor 11: otáčka za den)
-V14' = V11' × (1/5) × (1/73) = 1/365       (P = 365 dní)
-ekliptika (siderický den):
-V9'  = V20' × (366/365)
-P9'  = −365/366 = −23 h 56 m 3,9344… s
-```
+Ilustrativně (obecná čísla, ne konkrétní stroj): kalendářní kolo s převodem, který dá
+periodu `1/365` otáčky za den → 1 otáčka za rok; rozdíl siderického a solárního dne
+jako poměr `366/365`. Konkrétní historické stroje počítáme z **vlastního** train-countu
+(viz `examples/`).
 
 ## Grafická notace (tabule v Priestermechaniker)
 
@@ -69,8 +58,7 @@ Jahressystem). Princip notace:
   apsid, `Ekliptik`). Souosé výstupy (více ručiček na jedné ose) přes soustředné
   trubky — `Stützrohr` (opěrná trubka), `Brücke` (můstek).
 - **Dvojí číslování:** *kurzivní* větší čísla u indikací = pořadové číslo dílu
-  (Bauteil-Nr., odpovídá Roegelovu `V<index>`); *drobná čísla v závorkách* = počty
-  zubů (Zähnezahl).
+  (Bauteil-Nr.); *drobná čísla v závorkách* = počty zubů (Zähnezahl).
 - **Funkční dekompozice:** každý podsystém má vlastní titulek —
   `Planetarium heliozentrisch`, `Sonne/Mond Jahressystem`, `Sonne/Mond Tagessystem`,
   `Saturn Mondsystem`, `Jupiter Mondsystem`, `24-Stunden mit Bahnausgleich`.
@@ -128,6 +116,9 @@ zlomkovou notaci** — nejtěžší část, řešit později.
   300–302) — disertace, ~462 dílů.
 - Patent astronomických hodinek UN (Oechslin/Giger/Spöring) — Zotero `JCYTW4XB`
   (jen abstrakt).
-- Roegel, companion 2025 — <https://roegeld.github.io/oechslin/> (necitovat veřejně).
+- Roegel, D. (2022): kapitola o astronomických hodinách in *A General History of
+  Horology* (ed. Turner, Falk, Reith), Oxford University Press — formalizace metody
+  (exaktní zlomky, epicyklika). *Publikovaná kapitola je citovatelná; jeho online
+  companion zde záměrně necitujeme ani nezrcadlíme.*
 - Recenze: Mueller-Maerki (NAWCC), <https://mb.nawcc.org/threads/rewiew-oechslin-priestermechaniker-1996-repost.9033/>
 - Knespl, *Ochs und Junior: Důsledná jednoduchost* (2014) — Zotero `3U6FBYFX`.
