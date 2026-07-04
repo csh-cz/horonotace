@@ -511,8 +511,13 @@ Připomínky prosím k jednotlivým bodům s odkazem na číslo kapitoly, ideál
 z konkrétního stroje (i fotka/náčrt pomůže); terminologické s uvedením pramene nebo
 regionálního úzu.
 
-Kontakt: David Knespl, Český spolek horologický. *(Doplnit konkrétní kanál — e-mail /
-issue v repozitáři / sdílený dokument podle dohody.)*
+Kanály pro připomínky:
+
+- **GitHub Issues**: <https://github.com/csh-cz/horonotace/issues> (preferováno — u každé
+  připomínky číslo kapitoly),
+- kontakt: David Knespl, Český spolek horologický.
+
+Zdrojový repozitář (model, schéma, příklady, renderery): <https://github.com/csh-cz/horonotace>.
 
 ## 14. Reference
 
