@@ -19,6 +19,9 @@ import yaml
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from render_svg import build, esc  # noqa: E402
+import i18n  # noqa: E402
+
+LANG = "cs"
 
 PAPER, INK, THIN, ACC = "#f4eedd", "#1f1c14", "#8a8170", "#9a3b2e"
 PAL = ["#2f6b6b", "#9a3b2e", "#5b4b8a", "#b5702a", "#33506b",   # shodná paleta s vrstvou C (render_svg)
@@ -219,6 +222,10 @@ def front(B):
 
 
 def main():
+    global LANG
+    for a in sys.argv[1:]:
+        if a.startswith("--lang="):
+            LANG = a.split("=", 1)[1]
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     src = args[0] if args else "examples/ukazka-jednoduchy.yaml"
     dst = args[1] if len(args) > 1 else src.rsplit("/", 1)[-1].replace(".yaml", "-front.svg")
@@ -227,7 +234,7 @@ def main():
     with open(src, encoding="utf-8") as f:
         doc = yaml.safe_load(f)
     B = build(doc)
-    svg = front(B)
+    svg = i18n.localize(front(B), LANG)
     d = os.path.dirname(dst)
     if d:
         os.makedirs(d, exist_ok=True)

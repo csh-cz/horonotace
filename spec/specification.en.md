@@ -161,9 +161,8 @@ Oechslin's elevation:
 
 **Example — a typical tower movement** (going + striking, flatbed frame):
 
-![Elevation of a tower movement](../render/vezni-jici-bici.svg)
+![Elevation of a tower movement](../render/vezni-jici-bici-en.svg)
 
-*Figure labels are in Czech (renderer localisation is planned).*
 
 On the left the red **going train** (great wheel 96 → center wheel 96 → third wheel 90 →
 escape wheel 30, seconds pendulum, anchor escapement); on the right the green **striking
@@ -181,7 +180,7 @@ clocks).
 
 **Example — an imaginary Italian tower movement, concentric dial:**
 
-![Concentric Italian dial](../render/italske-vezni-cifernik.svg)
+![Concentric Italian dial](../render/italske-vezni-cifernik-en.svg)
 
 Concentric scales: the outer 24 **Italian hours** (I…XXIV from sunset), the middle 12
 **French hours**, the inner minute scale; a long Italian hand + a minute hand.
@@ -222,7 +221,7 @@ Two modes:
 
 **Example — a tower movement (going train above, striking train below):**
 
-![Front view of the gear train of a tower movement](../render/vezni-jici-bici-front.svg)
+![Front view of the gear train of a tower movement](../render/vezni-jici-bici-front-en.svg)
 
 Prototype: `tools/render_front.py`.
 
@@ -471,9 +470,8 @@ examples see §10 and [examples/](../examples/).
 
 For each type there is a schematic **symbol**. The complete sheet (48 symbols):
 
-![Sheet of symbols](../render/symboly.svg)
+![Sheet of symbols](../render/symboly-en.svg)
 
-*Figure labels are in Czech (renderer localisation is planned).*
 
 In the diagrams the escapement is **not assembled from separate pictures of each type**,
 but from component symbols — **escape-wheel types** (saw-tooth `krokove-kolo`, crown
@@ -500,7 +498,7 @@ given here as a model (see §7):
 
 Elevation (layer C):
 
-![Elevation of the Prague astronomical dial](../render/praga-orloj.svg)
+![Elevation of the Prague astronomical dial](../render/praga-orloj-en.svg)
 
 Record: [examples/praga-orloj.yaml](../examples/praga-orloj.yaml). The tooth counts of the
 *going* train of the astronomical dial are not unambiguously documented in the public

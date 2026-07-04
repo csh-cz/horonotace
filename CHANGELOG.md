@@ -25,6 +25,9 @@ První veřejné vydání.
 - **Oponentní specifikace** v Markdownu i DOCX (k připomínkám).
 - Licencování **EUPL-1.2** (kód, schéma) + **CC-BY-4.0** (dokumentace, příklady, render),
   REUSE 3.0.
+- **Anglická verze**: `README.en.md`, `spec/specification.en.md` (+ EN docx), dvojjazyčné
+  `description` v JSON Schema. **Lokalizace rendererů** (`--lang=en`, modul `tools/i18n.py`)
+  — anglicky olabelovaná sada diagramů (`render/*-en.svg`); přepínače jazyků v README i spec.
 
 ### Plánováno
 - Vrstva B (lineární „terse" zápis) a kanonizátor.

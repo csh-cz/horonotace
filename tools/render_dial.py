@@ -10,6 +10,10 @@ Usage:  python3 tools/render_dial.py examples/praga-orloj.yaml render/praga-orlo
 """
 import sys, os, math, html
 import yaml
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import i18n
+
+LANG = "cs"
 
 PAPER = "#f4eedd"; INK = "#1f1c14"; THIN = "#6b6253"
 GOLD = "#b0863a"; GOLD2 = "#7d5e26"
@@ -265,7 +269,7 @@ def render(doc):
 
 def run(src, out):
     doc = yaml.safe_load(open(src))
-    svg = render(doc)
+    svg = i18n.localize(render(doc), LANG)
     d = os.path.dirname(out)
     if d:
         os.makedirs(d, exist_ok=True)
@@ -274,7 +278,11 @@ def run(src, out):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) >= 3:
-        run(sys.argv[1], sys.argv[2])
+    for a in sys.argv[1:]:
+        if a.startswith("--lang="):
+            LANG = a.split("=", 1)[1]
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    if len(args) >= 2:
+        run(args[0], args[1])
     else:
         run("examples/praga-orloj.yaml", "render/praga-orloj-cifernik.svg")

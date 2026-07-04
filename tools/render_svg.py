@@ -18,6 +18,10 @@ Usage:  python3 tools/render_svg.py examples/praga-orloj.yaml render/praga-orloj
 import sys, os, html, math
 from collections import deque, defaultdict
 import yaml
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import i18n
+
+LANG = "cs"
 
 PAPER = "#f4eedd"; INK = "#1f1c14"; THIN = "#6b6253"; HAIR = "#8d8473"
 ACC = "#9a3b2e"      # spouštění / bití
@@ -624,7 +628,7 @@ def render(B):
 
 def run(src, out):
     B = build(yaml.safe_load(open(src)))
-    svg = render(B)
+    svg = i18n.localize(render(B), LANG)
     d = os.path.dirname(out)
     if d:
         os.makedirs(d, exist_ok=True)
@@ -638,6 +642,8 @@ if __name__ == "__main__":
     for a in sys.argv[1:]:                      # --mesh=1.0 (přímý záběr) … vyšší = volnější
         if a.startswith("--mesh=") or a.startswith("--density="):
             MESH_FACTOR = float(a.split("=", 1)[1])
+        if a.startswith("--lang="):
+            LANG = a.split("=", 1)[1]
     if "--all" in sys.argv:
         for nm in ("praga-orloj", "vezni-pocitadlo", "vezni-jici-bici", "orloj-astrolab"):
             run(f"examples/{nm}.yaml", f"render/{nm}.svg")

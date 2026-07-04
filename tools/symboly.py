@@ -9,7 +9,10 @@ Usage:  python3 tools/symboly.py --sheet render/symboly.svg
         python3 tools/symboly.py --table          # markdown tabulka na stdout
 """
 import sys, os, math, html
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import i18n
 
+LANG = "cs"
 PAPER = "#f4eedd"; INK = "#1f1c14"; THIN = "#6b6253"
 DRV = "#705f31"; ACC = "#9a3b2e"; OUT = "#33506b"
 
@@ -390,14 +393,20 @@ def sheet():
     # spočítej výšku
     rows = sum(((len(items) + COLS - 1) // COLS) for _, items in cats)
     H = 110 + len(cats) * 34 + rows * CH + 40
+    en_lang = (LANG == "en")
+    title = "Horonotace — sheet of symbols (layer C)" if en_lang else "Horonotace — list symbolů (vrstva C)"
+    subtitle = ("Schematic component symbols. Slug = value of the typ field; term per the horologicka-terminologie glossary."
+                if en_lang else "Schematické značky komponent. Slug = hodnota pole typ; termín dle glosáře horologicka-terminologie.")
+    stamp = "horonotace · symbol sheet" if en_lang else "horonotace · list symbolů"
     out = [f'<svg viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg" '
            f'font-family="Georgia,\'Times New Roman\',serif" role="img">',
            f'<rect width="{W}" height="{H}" fill="{PAPER}"/>',
-           f'<text x="40" y="48" font-size="22" fill="{INK}">Horonotace — list symbolů (vrstva C)</text>',
-           f'<text x="40" y="72" font-size="12" fill="{THIN}">Schematické značky komponent. Slug = hodnota pole typ; termín dle glosáře horologicka-terminologie.</text>']
+           f'<text x="40" y="48" font-size="22" fill="{INK}">{esc(title)}</text>',
+           f'<text x="40" y="72" font-size="12" fill="{THIN}">{esc(subtitle)}</text>']
     yy = 104
     for cat, items in cats:
-        out.append(f'<text x="40" y="{yy+16}" font-size="14" fill="{ACC}">{esc(cat)}</text>')
+        catlabel = i18n.CAT.get(cat, cat) if en_lang else cat
+        out.append(f'<text x="40" y="{yy+16}" font-size="14" fill="{ACC}">{esc(catlabel)}</text>')
         out.append(f'<line x1="40" y1="{yy+22}" x2="{W-40}" y2="{yy+22}" stroke="{ACC}" stroke-opacity="0.4" stroke-width="0.8"/>')
         yy += 34
         for i, (slug, cs, en, de, _, fn) in enumerate(items):
@@ -405,10 +414,11 @@ def sheet():
             cx = 40 + col * CW + CW // 2 - 60
             cyr = yy + rowstart * CH
             out += fn(cx, cyr + 30)
+            term = en if en_lang else cs
             out.append(f'<text x="{cx}" y="{cyr+66}" font-size="11" fill="{INK}" text-anchor="middle" font-family="monospace">{esc(slug)}</text>')
-            out.append(f'<text x="{cx}" y="{cyr+82}" font-size="11" fill="{THIN}" text-anchor="middle">{esc(cs)}</text>')
+            out.append(f'<text x="{cx}" y="{cyr+82}" font-size="11" fill="{THIN}" text-anchor="middle">{esc(term)}</text>')
         yy += ((len(items) + COLS - 1) // COLS) * CH + 6
-    out.append(f'<text x="{W-40}" y="{H-16}" font-size="10" fill="{THIN}" text-anchor="end" font-style="italic">horonotace · list symbolů</text>')
+    out.append(f'<text x="{W-40}" y="{H-16}" font-size="10" fill="{THIN}" text-anchor="end" font-style="italic">{esc(stamp)}</text>')
     out.append("</svg>")
     return "\n".join(out)
 
@@ -422,10 +432,15 @@ def table():
 
 
 if __name__ == "__main__":
+    for a in sys.argv[1:]:
+        if a.startswith("--lang="):
+            LANG = a.split("=", 1)[1]
     if "--table" in sys.argv:
         print(table())
     else:
         out = sys.argv[sys.argv.index("--sheet") + 1] if "--sheet" in sys.argv else "render/symboly.svg"
-        os.makedirs(os.path.dirname(out), exist_ok=True)
+        d = os.path.dirname(out)
+        if d:
+            os.makedirs(d, exist_ok=True)
         open(out, "w").write(sheet())
         print(f"→ {out}  ({len(SYM)} symbolů)")
