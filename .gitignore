@@ -8,3 +8,6 @@ venv/
 # scratch
 /tmp/
 *.tmp
+
+# dev
+.claude/

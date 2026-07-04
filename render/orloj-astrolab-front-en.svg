@@ -1,0 +1,24 @@
+<svg viewBox="0 0 600 991.2" xmlns="http://www.w3.org/2000/svg" font-family="Georgia,'Times New Roman',serif">
+<rect width="600" height="991.2" fill="#f4eedd"/>
+<text x="40" y="40" font-size="17" fill="#1f1c14">Astronomická indikace — astroláb (ukázka) <tspan font-size="12" fill="#8a8170">— front view</tspan></text>
+<text x="40" y="58" font-size="11" fill="#8a8170">wheels = pitch circles (⌀ ∝ teeth) · mesh = circles touching · mode: schematic (from tooth counts)</text>
+<line x1="158.0" y1="803.2" x2="282.6" y2="858.7" stroke="#8a8170" stroke-width="0.6" stroke-dasharray="2 3"/>
+<circle cx="265.8" cy="851.2" r="2.4" fill="none" stroke="#9a3b2e" stroke-width="1.1"/>
+<circle cx="154.0" cy="224.0" r="114.0" fill="none" stroke="#5b4b8a" stroke-width="1.4"/>
+<text x="154.0" y="106.0" font-size="11" fill="#5b4b8a" text-anchor="middle">366</text>
+<circle cx="154.0" cy="224.0" r="2.2" fill="#1f1c14"/>
+<circle cx="153.6" cy="511.5" r="113.6" fill="none" stroke="#5b4b8a" stroke-width="1.4"/>
+<text x="153.6" y="393.9" font-size="11" fill="#5b4b8a" text-anchor="middle">365</text>
+<circle cx="153.6" cy="511.5" r="2.2" fill="#1f1c14"/>
+<circle cx="158.0" cy="803.2" r="118.0" fill="none" stroke="#5b4b8a" stroke-width="1.4"/>
+<text x="158.0" y="681.2" font-size="11" fill="#5b4b8a" text-anchor="middle">379</text>
+<circle cx="158.0" cy="803.2" r="2.2" fill="#1f1c14"/>
+<circle cx="282.6" cy="858.7" r="18.4" fill="none" stroke="#b5702a" stroke-width="1.4"/>
+<text x="282.6" y="836.3" font-size="11" fill="#b5702a" text-anchor="middle">59</text>
+<circle cx="282.6" cy="858.7" r="2.2" fill="#1f1c14"/>
+<circle cx="45" cy="971.2" r="5" fill="none" stroke="#5b4b8a" stroke-width="1.4"/>
+<text x="55" y="975.2" font-size="10" fill="#8a8170">Astrolábová indikace</text>
+<circle cx="218" cy="971.2" r="5" fill="none" stroke="#b5702a" stroke-width="1.4"/>
+<text x="228" y="975.2" font-size="10" fill="#8a8170">Fáze Měsíce</text>
+<text x="560" y="40" font-size="10" fill="#8a8170" text-anchor="end" font-style="italic">horonotace · layer E</text>
+</svg>
