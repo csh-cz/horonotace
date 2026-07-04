@@ -2,6 +2,8 @@
 
 *[Čeština](README.md) · English*
 
+🔭 **Live example gallery:** <https://csh-cz.github.io/horonotace/>
+
 A notation for the schematic description of complete mechanical clock movements — drive,
 gear trains, escapement, oscillator, striking work, and indication (display) elements.
 The goal is a description that is at once **machine-readable** (suitable for AI work and

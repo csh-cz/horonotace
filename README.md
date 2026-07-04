@@ -2,6 +2,8 @@
 
 *Čeština · [English](README.en.md)*
 
+🔭 **Živá galerie příkladů:** <https://csh-cz.github.io/horonotace/>
+
 Notace pro schématický popis celých hodinových strojů — pohonu, soukolí, kroku,
 oscilátoru, bicího ústrojí a ukazovacích (indikačních) prvků. Cílem je zápis, který
 je zároveň **strojově čitelný** (vhodný pro práci s AI a pro databáze),
