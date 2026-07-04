@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Horonotace — živý editor</title>
+<style>
+  :root { --paper:#f4eedd; --ink:#1f1c14; --mut:#6b6253; --accent:#9a3b2e; --line:#d8cfb8; --panel:#efe7d2; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; height:100%; background:var(--paper); color:var(--ink);
+    font-family:Georgia,'Times New Roman',serif; }
+  header { padding:14px 18px 10px; border-bottom:1px solid var(--line); }
+  h1 { margin:0; font-size:20px; display:inline; }
+  h1 a { color:inherit; text-decoration:none; }
+  .sub { color:var(--mut); font-size:12px; margin-left:8px; }
+  nav { float:right; font-size:12px; }
+  nav a { color:var(--accent); text-decoration:none; margin-left:14px; }
+  .controls { display:flex; flex-wrap:wrap; gap:10px 16px; align-items:center;
+    padding:10px 18px; background:var(--panel); border-bottom:1px solid var(--line); }
+  label.lbl { font-size:12px; color:var(--mut); }
+  select { font-family:inherit; font-size:13px; padding:4px 8px; border:1px solid var(--line); border-radius:5px; background:#fff; }
+  .tab { font-size:13px; padding:5px 12px; border:1px solid var(--line); border-radius:20px; background:#fff; color:var(--mut); cursor:pointer; }
+  .tab.on { background:var(--accent); color:#fff; border-color:var(--accent); }
+  .seg { display:inline-flex; border:1px solid #b0863a; border-radius:20px; overflow:hidden; }
+  .seg span { padding:5px 12px; font-size:13px; cursor:pointer; color:var(--mut); }
+  .seg span.on { background:#b0863a; color:#fff; }
+  .chip { font-size:12px; padding:3px 10px; border-radius:12px; }
+  .chip.ok { background:#e3efe4; color:#2f6b4f; } .chip.err { background:#f2ddd8; color:#9a3b2e; } .chip.wait{ background:#efe7d2; color:#6b6253; }
+  main { display:flex; height:calc(100% - 118px); }
+  .pane { flex:1 1 50%; min-width:0; display:flex; flex-direction:column; }
+  .pane.left { border-right:1px solid var(--line); }
+  .phead { font-size:11px; color:var(--mut); padding:5px 12px; border-bottom:1px solid #eadfc8; background:var(--panel); }
+  textarea { flex:1; border:0; resize:none; padding:12px; font-family:ui-monospace,Menlo,Consolas,monospace;
+    font-size:12.5px; line-height:1.5; color:#33302a; background:#fbf7ec; outline:none; white-space:pre; overflow:auto; }
+  .stage { flex:1; overflow:auto; padding:14px; display:flex; align-items:flex-start; justify-content:center; }
+  .stage svg { max-width:100%; height:auto; }
+  .err { color:#9a3b2e; font-family:ui-monospace,monospace; font-size:12px; white-space:pre-wrap; padding:10px; }
+  #boot { position:fixed; inset:0; background:rgba(244,238,221,.94); display:flex; align-items:center; justify-content:center;
+    flex-direction:column; gap:12px; z-index:9; text-align:center; padding:20px; }
+  #boot .sp { width:26px; height:26px; border:3px solid var(--line); border-top-color:var(--accent); border-radius:50%; animation:s 1s linear infinite; }
+  @keyframes s { to { transform:rotate(360deg); } }
+  @media (max-width:720px){ main{flex-direction:column; height:auto;} .pane{flex:none;height:52vh} .pane.left{border-right:0;border-bottom:1px solid var(--line)} }
+</style>
+</head>
+<body>
+<header>
+  <h1><a href="index.html">Horonotace</a></h1><span class="sub" id="sub">živý editor — edituj YAML, schéma se překreslí</span>
+  <nav><a href="index.html" id="nGal">← galerie</a> <a href="https://github.com/csh-cz/horonotace" >GitHub</a></nav>
+</header>
+<div class="controls">
+  <label class="lbl" for="ex" id="lex">Příklad:</label>
+  <select id="ex"></select>
+  <div class="tab on" data-t="C" id="tC">C · elevace</div>
+  <div class="tab" data-t="D" id="tD">D · číselník</div>
+  <div class="tab" data-t="E" id="tE">E · čelní</div>
+  <span class="seg" id="lang"><span data-l="cs" class="on">CS</span><span data-l="en">EN</span></span>
+  <span class="chip wait" id="chip">…</span>
+</div>
+<main>
+  <div class="pane left">
+    <div class="phead" id="phL">model (YAML)</div>
+    <textarea id="ed" spellcheck="false"></textarea>
+  </div>
+  <div class="pane">
+    <div class="phead" id="phR">náhled (SVG)</div>
+    <div class="stage" id="stage"></div>
+  </div>
+</main>
+<div id="boot"><div class="sp"></div><div id="bmsg">Načítám Python v prohlížeči (Pyodide, ~10&nbsp;s)…</div></div>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.26.4/full/pyodide.js"></script>
+<script>
+const I = {
+  cs:{sub:"živý editor — edituj YAML, schéma se překreslí", ex:"Příklad:", gal:"← galerie",
+      phL:"model (YAML)", phR:"náhled (SVG)", boot:"Načítám Python v prohlížeči (Pyodide, ~10 s)…",
+      ok:"✓ vykresleno", waiting:"překresluji…", L:{C:"C · elevace",D:"D · číselník",E:"E · čelní"}},
+  en:{sub:"live editor — edit the YAML and the diagram redraws", ex:"Example:", gal:"← gallery",
+      phL:"model (YAML)", phR:"preview (SVG)", boot:"Loading Python in the browser (Pyodide, ~10 s)…",
+      ok:"✓ rendered", waiting:"rendering…", L:{C:"C · elevation",D:"D · dial",E:"E · front"}}
+};
+const EX = [
+  {id:"vezni-jici-bici", cs:"Věžní stroj (jicí + bicí)", en:"Tower clock (going + striking)"},
+  {id:"italske-vezni",   cs:"Italský stroj (imaginární)", en:"Italian clock (imaginary)"},
+  {id:"praga-orloj",     cs:"Pražský orloj", en:"Prague Orloj"},
+  {id:"ukazka-jednoduchy", cs:"Jednoduchý závažový stroj", en:"Simple weight-driven movement"},
+  {id:"vezni-pocitadlo", cs:"Věžní stroj — počitadlo", en:"Tower clock — count wheel"},
+  {id:"orloj-astrolab",  cs:"Astroláb (zjednodušený)", en:"Astrolabe (simplified)"},
+  {id:"praga-orloj-taborsky", cs:"Orloj — Táborský 1570", en:"Orloj — Táborský 1570"}
+];
+const $=s=>document.querySelector(s);
+let py, doRender, ready=false, lang="cs", layer="C", exi=0, timer=null;
+
+async function boot(){
+  try{
+    py = await loadPyodide({ indexURL:"https://cdn.jsdelivr.net/pyodide/v0.26.4/full/" });
+    await py.loadPackage("pyyaml");
+    py.FS.mkdirTree("/tools");
+    for(const f of ["i18n","render_svg","render_dial","render_front","symboly"]){
+      const t = await (await fetch("tools/"+f+".py")).text();
+      py.FS.writeFile("/tools/"+f+".py", t);
+    }
+    py.runPython(`
+import sys
+sys.path.insert(0, '/tools')
+import yaml, i18n, render_svg, render_front, render_dial, symboly
+def do_render(text, layer, lang):
+    render_svg.LANG = render_front.LANG = render_dial.LANG = symboly.LANG = lang
+    if layer == 'S':
+        return symboly.sheet()
+    doc = yaml.safe_load(text)
+    if layer == 'C':
+        return i18n.localize(render_svg.render(render_svg.build(doc)), lang)
+    if layer == 'E':
+        return i18n.localize(render_front.front(render_svg.build(doc)), lang)
+    if layer == 'D':
+        return i18n.localize(render_dial.render(doc), lang)
+    return ''
+`);
+    doRender = py.globals.get("do_render");
+    ready = true;
+    $("#boot").style.display="none";
+    await loadExample(0);
+  }catch(e){
+    $("#bmsg").innerHTML = "Chyba načítání: "+String(e).slice(0,300);
+  }
+}
+
+async function loadExample(i){
+  exi=i;
+  const t = await (await fetch("examples/"+EX[i].id+".yaml")).text();
+  $("#ed").value = t;
+  update();
+}
+function update(){
+  if(!ready) return;
+  chip("wait", I[lang].waiting);
+  const text = $("#ed").value;
+  setTimeout(()=>{                       // setTimeout, ne rAF (běží i ve skryté záložce)
+    try{
+      const svg = doRender(text, layer, lang);
+      $("#stage").innerHTML = svg;
+      chip("ok", I[lang].ok);
+    }catch(e){
+      const m = String(e.message||e);
+      const line = m.split("\n").filter(x=>x.trim()).slice(-2).join("\n");
+      $("#stage").innerHTML = '<div class="err">'+esc(line)+'</div>';
+      chip("err", "⚠ chyba");
+    }
+  }, 0);
+}
+function chip(cls,txt){ const c=$("#chip"); c.className="chip "+cls; c.textContent=txt; }
+function esc(s){ return s.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])); }
+function debounce(){ clearTimeout(timer); timer=setTimeout(update, 450); }
+function applyI18n(){
+  const t=I[lang];
+  $("#sub").textContent=t.sub; $("#lex").textContent=t.ex; $("#nGal").textContent=t.gal;
+  $("#phL").textContent=t.phL; $("#phR").textContent=t.phR;
+  $("#tC").textContent=t.L.C; $("#tD").textContent=t.L.D; $("#tE").textContent=t.L.E;
+  [...$("#ex").options].forEach((o,i)=>o.textContent=lang==="en"?EX[i].en:EX[i].cs);
+  document.documentElement.lang=lang;
+}
+function init(){
+  const sel=$("#ex");
+  EX.forEach((e,i)=>{ const o=document.createElement("option"); o.value=i; o.textContent=e.cs; sel.appendChild(o); });
+  sel.onchange=()=>loadExample(+sel.value);
+  document.querySelectorAll(".tab").forEach(el=>el.onclick=()=>{
+    layer=el.dataset.t;
+    document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("on", x===el));
+    update();
+  });
+  $("#lang").querySelectorAll("span").forEach(s=>s.onclick=()=>{
+    lang=s.dataset.l;
+    $("#lang").querySelectorAll("span").forEach(x=>x.classList.toggle("on", x.dataset.l===lang));
+    applyI18n(); update();
+  });
+  $("#ed").addEventListener("input", debounce);
+  applyI18n();
+  boot();
+}
+init();
+</script>
+</body>
+</html>

@@ -2,7 +2,7 @@
 
 *[Čeština](README.md) · English*
 
-🔭 **Live example gallery:** <https://csh-cz.github.io/horonotace/>
+🔭 **Live gallery:** <https://csh-cz.github.io/horonotace/> · **live editor** (YAML → SVG in the browser): <https://csh-cz.github.io/horonotace/editor.html>
 
 A notation for the schematic description of complete mechanical clock movements — drive,
 gear trains, escapement, oscillator, striking work, and indication (display) elements.

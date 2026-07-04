@@ -28,6 +28,9 @@ První veřejné vydání.
 - **Anglická verze**: `README.en.md`, `spec/specification.en.md` (+ EN docx), dvojjazyčné
   `description` v JSON Schema. **Lokalizace rendererů** (`--lang=en`, modul `tools/i18n.py`)
   — anglicky olabelovaná sada diagramů (`render/*-en.svg`); přepínače jazyků v README i spec.
+- **Web UI** na GitHub Pages (<https://csh-cz.github.io/horonotace/>): statická **galerie**
+  (`index.html`) a **živý editor** (`editor.html`) — edituješ YAML a schéma se překreslí
+  přímo v prohlížeči přes **Pyodide** (Python renderery ve WASM), bez backendu.
 
 ### Plánováno
 - Vrstva B (lineární „terse" zápis) a kanonizátor.

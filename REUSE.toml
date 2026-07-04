@@ -7,7 +7,7 @@ SPDX-FileCopyrightText = "2026 David Knespl / Český spolek horologický"
 SPDX-License-Identifier = "EUPL-1.2"
 
 [[annotations]]
-path = ["docs/**", "spec/**", "examples/**", "render/**", "README.md", "README.en.md", "NOTICE", "LICENSE.md", "CHANGELOG.md", "index.html", ".gitignore", "REUSE.toml"]
+path = ["docs/**", "spec/**", "examples/**", "render/**", "README.md", "README.en.md", "NOTICE", "LICENSE.md", "CHANGELOG.md", "index.html", "editor.html", ".gitignore", "REUSE.toml"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 David Knespl / Český spolek horologický"
 SPDX-License-Identifier = "CC-BY-4.0"
