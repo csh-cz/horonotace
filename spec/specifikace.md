@@ -1,5 +1,7 @@
 # Horonotace — notace pro popis hodinových strojů
 
+*Čeština · [English](specification.en.md)*
+
 ### Specifikace v0.1 · pracovní návrh k připomínkám
 
 | | |
